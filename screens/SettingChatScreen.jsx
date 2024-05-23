@@ -13,8 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { firestoreDB } from "../config/firebase.config";
-import { updateDoc, arrayRemove } from "firebase/firestore";
-import { arrayUnion, getDocs, collection } from "firebase/firestore";
+import { updateDoc } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { CommonActions } from "@react-navigation/native";
 
@@ -25,13 +25,12 @@ const SettingChatScreen = ({ route }) => {
   const [availableUsers, setAvailableUsers] = useState([]);
   const [showAvailableUsers, setShowAvailableUsers] = useState(false);
   const currentUser = useSelector((state) => state.user.user);
-
   const [selectedMember, setSelectedMember] = useState(null); // State for selected member
   const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
 
-  const toggleAvailableUsers = () => {
-    setShowAvailableUsers(!showAvailableUsers);
-  };
+  // const toggleAvailableUsers = () => {
+  //   setShowAvailableUsers(!showAvailableUsers);
+  // };
 
   useEffect(() => {
     const fetchAvailableUsers = async () => {
@@ -144,44 +143,27 @@ const SettingChatScreen = ({ route }) => {
       ]
     );
   };
-  // const navigateToProfileScreen = (userId) => {
-  //   navigation.navigate("ProfileScreen", { userId: userId });
-  // };
 
   const renderItem2 = ({ item }) => (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        margin: 10,
-      }}
-    >
+    <View style={styles.memberItemContainer}>
       <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center" }}
+        style={styles.memberItem}
         onPress={() => navigateToProfile(item._id)}
       >
         <Image
           source={{ uri: item.profilePic }}
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-            marginRight: 10,
-            borderColor: "#ccc",
-            borderWidth: 1,
-          }}
+          style={styles.memberItemImage}
         />
-        <Text style={{ fontSize: 16 }}>{item.fullName}</Text>
+        <Text style={styles.memberItemText}>{item.fullName}</Text>
       </TouchableOpacity>
       {room.owner._id === currentUser._id && currentUser._id !== item._id && (
-        <View style={{ flexDirection: "row" }}>
+        <View style={styles.ownerActions}>
           <TouchableOpacity onPress={() => handleTransferOwnership(item._id)}>
             <FontAwesome
               name="long-arrow-right"
               size={24}
               color="#333"
-              style={{ marginRight: 10 }}
+              style={styles.ownerActionIcon}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => removeParticipant(item._id)}>
@@ -190,12 +172,12 @@ const SettingChatScreen = ({ route }) => {
         </View>
       )}
       {room.owner._id === currentUser._id && currentUser._id === item._id && (
-        <View style={{ flexDirection: "row" }}>
+        <View style={styles.ownerLabel}>
           <Text>Owner</Text>
         </View>
       )}
       {room.owner._id !== currentUser._id && room.owner._id === item._id && (
-        <View style={{ flexDirection: "row" }}>
+        <View style={styles.ownerLabel}>
           <Text>Owner</Text>
         </View>
       )}
@@ -233,24 +215,15 @@ const SettingChatScreen = ({ route }) => {
     ]);
   };
 
-  // const deleteChat = async () => {
-  //   try {
-  //     if (room.owner._id !== currentUser._id) {
-  //       throw new Error("Only the owner can delete the chat.");
-  //     }
-
-  //     await deleteDoc(doc(firestoreDB, "chats", room._id));
-
-  //     Alert.alert("Success", "Chat deleted successfully");
-  //   } catch (error) {
-  //     console.error("Error deleting chat:", error);
-  //     Alert.alert("Error", "Failed to delete chat. Please try again later.");
-  //   }
-  // };
-
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ backgroundColor: "#8A2BE2", padding: 16, paddingTop: 50 }}>
+    <View style={{ flex: 1, paddingVertical: 30 }}>
+      <View
+        style={{
+          backgroundColor: "#8A2BE2",
+          paddingVertical: 20,
+          paddingHorizontal: 20,
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -261,7 +234,7 @@ const SettingChatScreen = ({ route }) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <MaterialIcons name="chevron-left" size={32} color="#333" />
           </TouchableOpacity>
-          <Text style={{ fontSize: 28, color: "#333" }}>Options</Text>
+          <Text style={{ fontSize: 20, color: "#333" }}>Options</Text>
         </View>
       </View>
       <TouchableOpacity
@@ -273,9 +246,12 @@ const SettingChatScreen = ({ route }) => {
       >
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
+            paddingTop: 20,
+            // borderBottomColor: "#333",
+            // borderBottomWidth: 1,
           }}
         >
           <Image
@@ -285,27 +261,53 @@ const SettingChatScreen = ({ route }) => {
               height: 70,
               borderRadius: 35,
               marginRight: 10,
-              borderColor: "#ccc",
+              borderColor: "#ddd",
               borderWidth: 1,
             }}
           />
-        </View>
-        <View style={{ alignItems: "center" }}>
           <Text style={{ fontSize: 20 }}>{room.participants[1].fullName}</Text>
         </View>
       </TouchableOpacity>
-
       <View
         style={{
-          padding: 16,
+          paddingHorizontal: 12,
+          paddingVertical: 16,
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
-        <TouchableOpacity onPress={toggleMembers}>
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Members</Text>
-        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+            onPress={toggleMembers}
+          >
+            <MaterialIcons name="people" size={24} color="#555" />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "black",
+                paddingLeft: 10,
+              }}
+            >
+              Members
+            </Text>
+          </TouchableOpacity>
+          <MaterialIcons name="keyboard-arrow-down" size={32} color="#555" />
+        </View>
       </View>
 
       {showMembers && (
@@ -315,7 +317,48 @@ const SettingChatScreen = ({ route }) => {
           renderItem={renderItem2}
         />
       )}
+      <View
+        style={{
+          width: "100%",
+          paddingHorizontal: 12,
 
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+            onPress={() => navigation.navigate("MediaScreen", { room: room })}
+          >
+            <MaterialIcons name="music-note" size={24} color="#555" />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "black",
+                paddingLeft: 10,
+              }}
+            >
+              Media & Download
+            </Text>
+          </TouchableOpacity>
+          <MaterialIcons name="chevron-right" size={32} color="#555" />
+        </View>
+      </View>
       <View
         style={{
           marginBottom: 10,
@@ -410,6 +453,39 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  memberItemContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: 10,
+    marginVertical: 5,
+    paddingVertical: 10,
+  },
+  memberItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  memberItemImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+    borderColor: "#ccc",
+    borderWidth: 1,
+  },
+  memberItemText: {
+    fontSize: 16,
+  },
+  ownerActions: {
+    flexDirection: "row",
+  },
+  ownerActionIcon: {
+    marginRight: 10,
+  },
+  ownerLabel: {
+    flexDirection: "row",
   },
 });
 

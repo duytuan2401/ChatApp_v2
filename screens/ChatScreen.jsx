@@ -19,15 +19,12 @@ import {
 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import {
-  addDoc,
   collection,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
   doc,
-  getDoc,
-  deleteDoc,
   updateDoc,
   setDoc,
 } from "firebase/firestore";
@@ -227,12 +224,16 @@ const ChatScreen = ({ route }) => {
     }
   };
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingVertical: 30 }}>
       <View
         style={{
           width: "100%",
+          flexDirection: "row",
+          // alignItems: "center",
+          paddingTop: -20,
+          paddingVertical: 20,
           backgroundColor: "#8A2BE2",
-          padding: 20,
+          zIndex: 1,
         }}
       >
         <View
@@ -241,8 +242,8 @@ const ChatScreen = ({ route }) => {
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
-            paddingHorizontal: 16,
-            paddingTop: 48,
+            paddingHorizontal: 20,
+            paddingTop: 30,
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -253,35 +254,16 @@ const ChatScreen = ({ route }) => {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                marginLeft: 12,
               }}
             >
-              {/* <View
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 24,
-                  borderWidth: 1,
-                  borderColor: "#333",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <FontAwesome5 name="users" size={24} color="#333" />
-              </View> */}
-              <View style={{ marginLeft: 12 }}>
+              <View>
                 <Text
-                  style={{ color: "#333", fontSize: 25, fontWeight: "600" }}
+                  style={{ color: "#333", fontSize: 18, fontWeight: "600" }}
                 >
                   {room.chatName.length > 16
-                    ? `${room.chatName.slice(0, 16)}..`
+                    ? `${room.chatName.slice(0, 30)}`
                     : room.chatName}
                 </Text>
-                {/* <Text
-                style={{ color: "#D1D5DB", fontSize: 14, fontWeight: "600" }}
-              >
-                online
-              </Text> */}
               </View>
             </View>
           </View>
@@ -304,11 +286,9 @@ const ChatScreen = ({ route }) => {
       <View
         style={{
           width: "100%",
-          backgroundColor: "#F0F0F0",
+          backgroundColor: "#ddd",
           padding: 24,
           flex: 1,
-          // borderTopLeftRadius: 50,
-          // borderTopRightRadius: 50,
           marginTop: -10,
         }}
       >
@@ -318,7 +298,7 @@ const ChatScreen = ({ route }) => {
           keyboardVerticalOffset={160}
         >
           <>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               {isLoading ? (
                 <View
                   style={{
@@ -349,6 +329,11 @@ const ChatScreen = ({ route }) => {
                             >
                               <MaterialIcons
                                 name="delete"
+                                size={24}
+                                color="black"
+                              />
+                              <MaterialIcons
+                                name="forward"
                                 size={24}
                                 color="black"
                               />
@@ -589,7 +574,6 @@ const ChatScreen = ({ route }) => {
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
-                paddingHorizontal: 8,
               }}
             >
               <View
@@ -617,12 +601,12 @@ const ChatScreen = ({ route }) => {
                 <TextInput
                   style={{
                     flex: 1,
-                    height: 32,
+                    height: 40,
                     fontSize: 16,
                     color: "#333",
                     fontWeight: "600",
                   }}
-                  placeholder="Type your message..."
+                  placeholder=" Type your message..."
                   placeholderTextColor="#999"
                   value={message}
                   onChangeText={(text) => setMessage(text)}

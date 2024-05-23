@@ -140,7 +140,7 @@ const AddToChatScreen = () => {
               style={{
                 flexDirection: "column",
                 alignItems: "flex-start",
-                marginLeft: "auto", // Đẩy các checkbox sang phải
+                marginLeft: "auto",
               }}
             >
               <CheckBox
@@ -161,8 +161,9 @@ const AddToChatScreen = () => {
       <View
         style={{
           backgroundColor: "#8A2BE2",
-          padding: 16,
           paddingTop: 50,
+          paddingHorizontal: 20,
+          paddingVertical: 25,
           width: "100%",
         }}
       >
@@ -171,7 +172,7 @@ const AddToChatScreen = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            paddingHorizontal: 16,
+            // paddingHorizontal: 20,
           }}
         >
           {/* Go back */}
@@ -179,19 +180,21 @@ const AddToChatScreen = () => {
             <MaterialIcons name="chevron-left" size={32} color="#333" />
           </TouchableOpacity>
           {/* Middle */}
-          <Text style={{ fontSize: 28, color: "#333" }}>Create Chat</Text>
+          <Text style={{ fontSize: 20, color: "#333" }}>Create Chat</Text>
           {/* last section */}
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              paddingHorizontal: 3,
+              width: 50,
+              height: 50,
+              borderRadius: 25,
+              borderWidth: 1,
+              borderColor: "#ddd",
+              overflow: "hidden",
             }}
           >
             <Image
               source={{ uri: user?.profilePic }}
-              style={{ width: 40, height: 48 }}
+              style={{ width: 48, height: 48 }}
               resizeMode="contain"
             />
           </View>
@@ -205,8 +208,6 @@ const AddToChatScreen = () => {
           paddingVertical: 16,
           paddingHorizontal: 16,
           flex: 1,
-          // borderTopLeftRadius: 50,
-          // borderTopRightRadius: 50,
           marginTop: -10,
         }}
       >
@@ -219,7 +220,6 @@ const AddToChatScreen = () => {
               alignItems: "center",
               justifyContent: "space-between",
               borderRadius: 20,
-              border: 1,
               borderColor: "#E5E7EB",
             }}
           >

@@ -9,3 +9,4 @@ export { default as SettingChatScreen } from "./SettingChatScreen";
 export { default as SettingGroupChatScreen } from "./SettingGroupChatScreen";
 export { default as AccountScreen } from "./AccountScreen";
 export { default as ProfileScreen } from "./ProfileScreen";
+export { default as MediaScreen } from "./MediaScreen";

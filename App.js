@@ -15,6 +15,7 @@ import {
   SettingGroupChatScreen,
   ProfileScreen,
   AccountScreen,
+  MediaScreen,
 } from "./screens";
 import { Provider } from "react-redux";
 import Store from "./context/store";
@@ -45,6 +46,7 @@ const App = () => {
           />
           <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           <Stack.Screen name="AccountScreen" component={AccountScreen} />
+          <Stack.Screen name="MediaScreen" component={MediaScreen} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

@@ -4,8 +4,6 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  ScrollView,
-  TextInput,
   Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -162,12 +160,6 @@ export default function SignUpScreen() {
           borderWidth: 2,
         }}
       >
-        {/* <Image
-          source={Logo}
-          style={{ width: 70, height: 70 }}
-          resizeMode="cover"
-        /> */}
-
         <Text
           style={{
             paddingVertical: 8,
@@ -194,13 +186,15 @@ export default function SignUpScreen() {
           <TouchableOpacity
             onPress={handlePickAvatar}
             style={{
-              width: 80,
-              height: 80,
+              width: 70,
+              height: 70,
               borderRadius: 80,
               borderWidth: 3,
-              borderColor: "white",
               alignItems: "center",
               justifyContent: "center",
+              borderWidth: 1,
+              borderColor: "#ddd",
+              overflow: "hidden",
             }}
           >
             {avatar ? (

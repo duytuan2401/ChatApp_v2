@@ -27,8 +27,8 @@ const SettingGroupChatScreen = ({ route }) => {
   const [showAvailableUsers, setShowAvailableUsers] = useState(false);
   const currentUser = useSelector((state) => state.user.user);
   const [isOwner, setIsOwner] = useState(true); // Biến trạng thái để kiểm soát việc hiển thị các nút
-  const [selectedMember, setSelectedMember] = useState(null); 
-  const [isModalVisible, setIsModalVisible] = useState(false); 
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const toggleAvailableUsers = () => {
     setShowAvailableUsers(!showAvailableUsers);
@@ -316,8 +316,14 @@ const SettingGroupChatScreen = ({ route }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ backgroundColor: "#8A2BE2", padding: 16, paddingTop: 50 }}>
+    <View style={{ flex: 1, paddingVertical: 30 }}>
+      <View
+        style={{
+          backgroundColor: "#8A2BE2",
+          paddingVertical: 20,
+          paddingHorizontal: 20,
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -328,50 +334,37 @@ const SettingGroupChatScreen = ({ route }) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <MaterialIcons name="chevron-left" size={32} color="#333" />
           </TouchableOpacity>
-          <Text style={{ fontSize: 28, color: "#333" }}>Options</Text>
+          <Text style={{ fontSize: 20, color: "#333" }}>Options</Text>
         </View>
       </View>
-      {/* Hiển thị avatar và tên của người dùng đang đăng nhập */}
-      {/* <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("ProfileScreen", { userId: currentUser.id })
-        }
+      <View
+        style={{
+          // borderBottomColor: "black",
+          // borderBottomWidth: 1,
+
+          width: "100%",
+        }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Image
-            source={{ uri: room.participants[1].profilePic }}
-            style={{
-              width: 70,
-              height: 70,
-              borderRadius: 32,
-              marginTop: 10,
-              borderColor: "#ccc",
-            }}
-          />
-        </View>
-      </TouchableOpacity> */}
-      <View>
-        <TouchableOpacity onPress={toggleAvailableUsers}>
-          <View
+        <View>
+          <TouchableOpacity
+            onPress={toggleAvailableUsers}
             style={{
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
-              paddingHorizontal: 16,
-              marginBottom: 10,
+              paddingHorizontal: 12,
+              paddingVertical: 16,
+              borderBottomColor: "black",
+              borderBottomWidth: 1,
             }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
               Members Not Join
             </Text>
-          </View>
-        </TouchableOpacity>
+            <MaterialIcons name="keyboard-arrow-down" size={32} color="#555" />
+          </TouchableOpacity>
+        </View>
+
         {showAvailableUsers && (
           <>
             {/* Danh sách người dùng chưa tham gia */}
@@ -422,17 +415,21 @@ const SettingGroupChatScreen = ({ route }) => {
 
       <View
         style={{
-          padding: 16,
+          paddingHorizontal: 12,
+          paddingVertical: 16,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
+          borderBottomColor: "black",
+          borderBottomWidth: 1,
         }}
       >
         <TouchableOpacity onPress={toggleMembers}>
-          <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
             Members Joined
           </Text>
         </TouchableOpacity>
+        <MaterialIcons name="keyboard-arrow-down" size={32} color="#555" />
       </View>
 
       {showMembers && (
@@ -483,9 +480,6 @@ const SettingGroupChatScreen = ({ route }) => {
                 <Text style={styles.modalText}>
                   Email: {selectedMember.providerData.email}
                 </Text>
-                {/* <Text style={styles.modalText}>
-                  Phone: {selectedMember.phone}
-                </Text> */}
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={() => setIsModalVisible(false)}

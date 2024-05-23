@@ -205,7 +205,7 @@ const AccountScreen = ({ route }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="chevron-left" size={32} color="#333" />
         </TouchableOpacity>
-        <Text style={{ fontSize: 28, color: "#333" }}>Options</Text>
+        <Text style={{ fontSize: 20, color: "#333" }}>Options</Text>
       </View>
       <TouchableOpacity
         onPress={confirmChangePassword}
@@ -229,10 +229,10 @@ const AccountScreen = ({ route }) => {
           <Ionicons name="lock-open-outline" size={24} color="#555" />
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: "bold",
               color: "black",
-              paddingLeft: 3,
+              paddingLeft: 10,
             }}
           >
             Change Password
@@ -261,10 +261,10 @@ const AccountScreen = ({ route }) => {
           <Ionicons name="pencil" size={24} color="#555" />
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: "bold",
               color: "black",
-              paddingLeft: 3,
+              paddingLeft: 10,
             }}
           >
             Edit Profile
